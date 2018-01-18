@@ -1,5 +1,6 @@
 .employee-row {
   display: flex;
+  background-color: #f2f2f2;
 }
 
 .employee-header {
@@ -7,8 +8,7 @@
 }
 
 .employee-row > .employee-table-cell {  
-  background-color: #92a8d1;
-  color: white;
+  color: black;
   width: 100%;
   margin: 1px;
   text-align: center;
@@ -17,7 +17,7 @@
 }
 
 .employee-header > .employee-table-cell {  
-  background-color: #5882FA;
+  background-color: red;
   color: white;
   width: 100%;
   margin: 1px;
@@ -25,3 +25,8 @@
   line-height: 20px;
   font-size: 20px;
 }
+
+.employee-row:hover {
+	background-color: #BDBDBD;
+}
+

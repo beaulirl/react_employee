@@ -42,7 +42,6 @@ class EmployeeTable extends React.Component {
 		const employeeList = [];
 		const rows = this.props.employeeData;
 		rows.forEach((employee) => employeeList.push(<EmployeeRow key={employee.id} data={employee}/>));
-		console.log(employeeList);
 		return (
 			<div className="employee-table">
 				<div className="employee-table-body">
@@ -56,10 +55,17 @@ class EmployeeTable extends React.Component {
 
 
 class FilterComponent extends React.Component {
+	constructor(props) {
+	    super(props);
+	    this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+    }
+	handleFilterTextChange(e){
+		this.props.onFilterTextChange(e.target.value);
+	}
 	render() {
 		return (
 			<div className="filter">
-				<input type="text" name="filter"/>
+				<input type="text" name="filter" placeholder="Search" value={this.props.filterText} onChange={this.handleFilterTextChange}/>
 			</div> 
 			);
 	}
@@ -67,11 +73,23 @@ class FilterComponent extends React.Component {
 
 
 class FilterableEmployeeList extends React.Component {
+	constructor(props) {
+		super(props);
+		this.state = {
+			filterText: '',
+		};
+		this.handleFilterTextChange = this.handleFilterTextChange.bind(this);
+	}
+	handleFilterTextChange(filterText) {
+		this.setState({
+			filterText: filterText
+		});
+	};
 	render() {
 		return (
 			<div className="employee-list">
-			<FilterComponent />
-			<EmployeeTable employeeData={this.props.data}/>
+				<FilterComponent filterText={this.state.filterText} onFilterTextChange={this.handleFilterTextChange}/>
+				<EmployeeTable employeeData={this.props.data}/>
 			</div>
 			);
 	}
