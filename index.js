@@ -39,9 +39,17 @@ class EmployeeHeader extends React.Component {
 
 class EmployeeTable extends React.Component {
 	render() {
+		const filterText = this.props.filterText;
+
 		const employeeList = [];
 		const rows = this.props.employeeData;
-		rows.forEach((employee) => employeeList.push(<EmployeeRow key={employee.id} data={employee}/>));
+		rows.forEach((employee) => {
+			if ((employee.name.indexOf(filterText) === -1) && (employee.job.indexOf(filterText) === -1)) {
+				return;
+			}
+			console.log(employee.name.indexOf('R'));
+			employeeList.push(<EmployeeRow key={employee.id} data={employee}/>)
+		});
 		return (
 			<div className="employee-table">
 				<div className="employee-table-body">
@@ -89,7 +97,7 @@ class FilterableEmployeeList extends React.Component {
 		return (
 			<div className="employee-list">
 				<FilterComponent filterText={this.state.filterText} onFilterTextChange={this.handleFilterTextChange}/>
-				<EmployeeTable employeeData={this.props.data}/>
+				<EmployeeTable filterText={this.state.filterText} employeeData={this.props.data}/>
 			</div>
 			);
 	}
